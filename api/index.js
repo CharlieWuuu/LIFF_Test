@@ -75,8 +75,9 @@ export default async (req, res) => {
 
 // 4) (選擇性) 主動推播函式示範
 export async function pushOilAlert(userId) {
+    const alertTime = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
     await client.pushMessage(userId, {
         type: 'text',
-        text: '油污事件警報，請立即查看！',
+        text: `${alertTime} 發生油污事件警報，請立即查看！`,
     });
 }
