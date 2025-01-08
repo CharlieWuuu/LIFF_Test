@@ -27,6 +27,13 @@ async function handleEvent(event) {
             });
         }
 
+        if (msg.includes('警報介紹')) {
+            return client.replyMessage(event.replyToken, {
+                type: 'text',
+                text: '我們利用衛星影像監測海上油汙，為您提供即時警報服務！',
+            });
+        }
+
         // 其餘文字 → 回覆提示
         return client.replyMessage(event.replyToken, {
             type: 'text',
