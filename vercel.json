@@ -1,4 +1,15 @@
 {
+	"functions": {
+		"api/index.js": {
+			"includeFiles": "config/*.json"
+		}
+	},
+	"builds": [
+		{
+			"src": "api/index.js",
+			"use": "@vercel/node"
+		}
+	],
 	"routes": [
 		{
 			"src": "/callback",
