@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@line/bot-sdk": "^9.5.0"
+  },
+  "name": "56_line",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
