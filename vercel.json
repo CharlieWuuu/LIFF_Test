@@ -4,10 +4,5 @@
 			"src": "/callback",
 			"dest": "api/index.js"
 		}
-	],
-	"functions": {
-		"api/index.js": {
-			"includeFiles": "config/*.json"
-		}
-	}
+	]
 }
