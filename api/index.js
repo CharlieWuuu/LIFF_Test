@@ -1,4 +1,6 @@
 import { Client } from '@line/bot-sdk';
+import 'dotenv/config';
+// 如果是 CommonJS 可用： require('dotenv').config();
 
 // 1) 使用環境變數讀取金鑰
 const config = {
