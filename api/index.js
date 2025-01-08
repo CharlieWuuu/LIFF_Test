@@ -12,7 +12,8 @@ const client = new Client(config);
 
 async function handleEvent(event) {
     if (event.type === 'message' && event.message.type === 'text') {
-        const userId = event.source.userId;
+        // const userId = event.source.userId;
+        const userId = 'U09694acc44c75ed390f872f9183d0840';
         console.log('User ID:', userId);
 
         const msg = event.message.text;
