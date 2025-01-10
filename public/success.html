@@ -28,7 +28,7 @@
 	<p><strong>名稱：</strong> <span id="displayName">載入中...</span></p>
 	<p><strong>User ID：</strong> <span id="userId">載入中...</span></p>
 	<p><strong>狀態消息：</strong> <span id="statusMessage">載入中...</span></p>
-
+	<button onclick="sendUserDataToGoogleSheet()">儲存到 Google Sheets</button>
 	<button onclick="closeLiff()">關閉 LIFF</button>
 
 	<script>
@@ -52,27 +52,7 @@
 
 				console.log('LIFF 登入成功，使用者資訊：', profile);
 
-				try {
-					const response = await fetch('https://script.google.com/a/macros/richitech.com.tw/s/AKfycbzLpFWPuybW_SyM65rcsOkVQbi9erEylxZ03MFh-BnocY1nCWjmeRRnSuWm5uD6m7Q/exec', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({
-							ID: "01",
-							USER_ID: profile.USER_ID,
-							NAME: profile.NAME,
-							COUNTY: profile.COUNTY,
-							TIMESTAMP: new Date().toISOString()
-						})
-					});
 
-					if (response.ok) {
-						alert('使用者資料已成功儲存到 Google Sheets！');
-					} else {
-						alert('儲存失敗，請檢查 Apps Script 部署。');
-					}
-				} catch (error) {
-					console.error('傳送失敗：', error);
-				}
 			} catch (error) {
 				console.error('LIFF 初始化失敗:', error);
 				alert('LIFF 初始化失敗，請檢查設定。');
@@ -83,6 +63,33 @@
 		function closeLiff() {
 			liff.closeWindow();
 		}
+
+		async function sendUserDataToGoogleSheet() {
+			try {
+				const profile = await liff.getProfile();
+
+				const response = await fetch('https://script.google.com/a/macros/richitech.com.tw/s/AKfycbzLpFWPuybW_SyM65rcsOkVQbi9erEylxZ03MFh-BnocY1nCWjmeRRnSuWm5uD6m7Q/exec', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						ID: "01",
+						USER_ID: profile.USER_ID,
+						NAME: profile.NAME,
+						COUNTY: profile.COUNTY,
+						TIMESTAMP: new Date().toISOString()
+					})
+				});
+
+				if (response.ok) {
+					alert('使用者資料已成功儲存到 Google Sheets！');
+				} else {
+					alert('儲存失敗，請檢查 Apps Script 部署。');
+				}
+			} catch (error) {
+				console.error('傳送失敗：', error);
+			}
+		}
+
 	</script>
 </body>
 
