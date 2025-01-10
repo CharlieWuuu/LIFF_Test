@@ -1,0 +1,48 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+	<meta charset="UTF-8">
+	<title>LIFF 測試</title>
+	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', async () => {
+			try {
+				await liff.init({ liffId: '2006752354-q3wE124r' });
+
+				if (!liff.isLoggedIn()) {
+					liff.login(); // 自動登入
+				}
+
+				const profile = await liff.getProfile();
+				document.getElementById('userId').textContent = `您的 User ID: ${profile.userId}`;
+			} catch (error) {
+				console.error('LIFF 初始化失敗:', error);
+			}
+		});
+
+		async function sendUserId() {
+			console.log('傳送 UserId 到伺服器');
+			const profile = await liff.getProfile();
+			const response = await fetch('https://你的專案名稱.vercel.app/api/storeUserId', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ userId: profile.userId })
+			});
+			const result = await response.json();
+			alert(result.message);
+		}
+	</script>
+</head>
+
+<body>
+	<h1>LIFF 測試頁面</h1>
+	<p id="userId">正在載入...</p>
+	<button onclick="liff.closeWindow()">關閉 LIFF</button>
+
+	<button onclick="sendUserId()">傳送 UserId 到伺服器</button>
+</body>
+
+
+</html>

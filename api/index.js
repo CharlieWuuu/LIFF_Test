@@ -78,9 +78,9 @@ export default async (req, res) => {
 
     // ✅ 主動推播路徑 (需要提供 userId)
     else if (req.method === 'GET' && req.query.push === 'true') {
-        const userId = req.query.userId; // ✅ 動態取得 userId
+        const userId = 'U09694acc44c75ed390f872f9183d0840'; // ✅ 動態取得 userId
         if (!userId) {
-            return res.status(400).send('❌ Error: userId is required' + req.query);
+            return res.status(400).send('❌ Error: userId is required');
         }
         try {
             await pushOilAlert(userId);

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LIFF 登入成功</title>
+	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			padding: 20px;
+		}
+
+		img {
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>🎉 登入成功！</h1>
+	<p>以下是您的 LINE 資訊：</p>
+	<img id="profilePicture" alt="Profile Picture">
+	<p><strong>名稱：</strong> <span id="displayName">載入中...</span></p>
+	<p><strong>User ID：</strong> <span id="userId">載入中...</span></p>
+	<p><strong>狀態消息：</strong> <span id="statusMessage">載入中...</span></p>
+
+	<button onclick="closeLiff()">關閉 LIFF</button>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', async () => {
+			try {
+				// 初始化 LIFF 並確認已登入
+				await liff.init({ liffId: '2006752354-q3wE124r' });
+
+				if (!liff.isLoggedIn()) {
+					alert('尚未登入，將自動導向登入頁面');
+					liff.login();
+					return;
+				}
+
+				// 取得使用者資訊
+				const profile = await liff.getProfile();
+				document.getElementById('displayName').textContent = profile.displayName;
+				document.getElementById('userId').textContent = profile.userId;
+				document.getElementById('statusMessage').textContent = profile.statusMessage || '無';
+				document.getElementById('profilePicture').src = profile.pictureUrl;
+
+				console.log('LIFF 登入成功，使用者資訊：', profile);
+			} catch (error) {
+				console.error('LIFF 初始化失敗:', error);
+				alert('LIFF 初始化失敗，請檢查設定。');
+			}
+		});
+
+		// 讓使用者關閉 LIFF 視窗
+		function closeLiff() {
+			liff.closeWindow();
+		}
+	</script>
+</body>
+
+</html>
