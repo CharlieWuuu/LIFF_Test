@@ -8,13 +8,13 @@ const config = {
     channelSecret: process.env.CHANNEL_SECRET,
 };
 const client = new Client(config);
-
+let userId = '';
 // 2) 處理事件的函式
 async function handleEvent(event) {
     // 如果是文字訊息
     if (event.type === 'message' && event.message.type === 'text') {
-        // const userId = event.source.userId;
-        const userId = 'U09694acc44c75ed390f872f9183d0840';
+        userId = event.source.userId;
+        // const userId = 'U09694acc44c75ed390f872f9183d0840';
         console.log('User ID:', userId);
 
         const msg = event.message.text;
@@ -58,7 +58,7 @@ export default async (req, res) => {
 
     // 新增一個 GET 路徑來觸發推播 (測試用)
     if (req.method === 'GET' && req.query.push === 'true') {
-        const userId = 'U09694acc44c75ed390f872f9183d0840';
+        // const userId = 'U09694acc44c75ed390f872f9183d0840';
         console.log('Push request received for userId:', userId);
         try {
             await pushOilAlert(userId);
