@@ -80,7 +80,7 @@ export default async (req, res) => {
     else if (req.method === 'GET' && req.query.push === 'true') {
         const userId = req.query.userId; // ✅ 動態取得 userId
         if (!userId) {
-            return res.status(400).send('❌ Error: userId is required');
+            return res.status(400).send('❌ Error: userId is required' + req.query);
         }
         try {
             await pushOilAlert(userId);
